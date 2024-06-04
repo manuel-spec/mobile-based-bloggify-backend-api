@@ -13,7 +13,7 @@ class Category extends Model
     // Define the attributes that are mass assignable
     protected $fillable = [
         'name',
-        'description',
+        
     ];
 
     // Example of a relationship: a category can have many posts

@@ -1,5 +1,3 @@
-
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->text('content');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id'); // Add category_id column
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('category_id')->references('id')->on('categories'); // Define the foreign key constraint
             $table->timestamps();
         });
     }

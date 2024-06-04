@@ -11,14 +11,31 @@ class BlogModelController extends Controller
     public function index()
     {
         return response([
-            'blogs' => BlogModel::orderBy('created_at', 'desc')->with('user:id,name,username')->withCount('likes')->get(),
+            'blogs' => BlogModel::orderBy('created_at', 'desc')
+                                ->with('user:id,name,username')
+                                ->with('category:id,name') // Include category in the response
+                                ->withCount('likes')
+                                ->get(),
         ], 200);
     }
 
     // Create a new blog
     public function store(Request $request)
     {
-        $blog = BlogModel::create($request->all());
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'content' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $blog = BlogModel::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $request->input('content'),
+            'user_id' => auth()->id(),
+            'category_id' => $request->input('category_id'),
+        ]);
 
         return response()->json($blog, 201);
     }
@@ -26,7 +43,7 @@ class BlogModelController extends Controller
     // Retrieve a specific blog
     public function show($id)
     {
-        $blog = BlogModel::findOrFail($id);
+        $blog = BlogModel::with(['user:id,name,username', 'category:id,name'])->findOrFail($id);
 
         return response()->json($blog);
     }
@@ -34,8 +51,20 @@ class BlogModelController extends Controller
     // Update a specific blog
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'content' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
         $blog = BlogModel::findOrFail($id);
-        $blog->update($request->all());
+        $blog->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $request->input('content'),
+            'category_id' => $request->input('category_id'),
+        ]);
 
         return response()->json($blog);
     }
