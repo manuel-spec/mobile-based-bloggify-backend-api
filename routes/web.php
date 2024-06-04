@@ -13,5 +13,6 @@ Route::prefix('api')->group(function () {
         Route::post('logout', [authController::class, 'logout']);
         Route::post('blogs/{id}/likes', [LikeController::class, 'toggleLike']);
         Route::apiResource('blogs', BlogModelController::class);
+        Route::apiResource('comments', CommentController::class);
     });
 });
