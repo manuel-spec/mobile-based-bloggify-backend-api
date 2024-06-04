@@ -10,7 +10,7 @@ class Like extends Model
     use HasFactory;
 
     protected $fillable = [
-        'blog_model_id',
+        'blog_id',
         'user_id',
     ];
 
@@ -21,6 +21,6 @@ class Like extends Model
 
     public function blog()
     {
-        return $this->belongsTo(BlogModel::class);
+        return $this->belongsTo(BlogModel::class, 'blog_id');
     }
 }

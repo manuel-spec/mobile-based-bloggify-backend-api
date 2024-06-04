@@ -22,6 +22,6 @@ class BlogModel extends Model
     }
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'blog_id');
     }
 }

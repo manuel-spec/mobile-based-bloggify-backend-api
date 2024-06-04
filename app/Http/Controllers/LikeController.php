@@ -17,11 +17,11 @@ class LikeController extends Controller
             ], 404);
         }
 
-        $like = $blog->likes()->where('user_id', auth()->user()->id)->first();
+        $like = $blog->likes()->where('user_id', auth()->user()->id)->first() ;
 
         if (! $like) {
             Like::create([
-                'blog_model_id' => $id,
+                'blog_id' => $id,
                 'user_id' => auth()->user()->id,
             ]);
 
