@@ -17,9 +17,12 @@ return new class extends Migration
             $table->text('description');
             $table->text('content');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id'); // Add category_id column
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories'); // Define the foreign key constraint
+            $table->unsignedBigInteger('category_id'); 
+
+            // Define the foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

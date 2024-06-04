@@ -13,11 +13,10 @@ class Category extends Model
     // Define the attributes that are mass assignable
     protected $fillable = [
         'name',
-        
     ];
 
-    // Example of a relationship: a category can have many posts
-    public function posts()
+    // Relationship: a category can have many blog posts
+    public function blogs()
     {
         return $this->hasMany(BlogModel::class);
     }

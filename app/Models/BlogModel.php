@@ -4,6 +4,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User;
+use App\Models\Like;
+use App\Models\Category;
 
 
 
@@ -24,5 +27,9 @@ class BlogModel extends Model
     public function likes()
     {
         return $this->hasMany(Like::class, 'blog_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
