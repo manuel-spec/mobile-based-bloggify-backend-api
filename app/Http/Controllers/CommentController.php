@@ -33,7 +33,7 @@ class CommentController extends Controller
         $comment = new Comment;
         $comment->content = $request->input('content');
         $comment->blog_id = $blogId;
-        $comment->user_id = auth()->id(); // Assuming comments are related to users
+        $comment->user_id = auth()->id(); 
         $comment->save();
 
         return response()->json($comment, 201);

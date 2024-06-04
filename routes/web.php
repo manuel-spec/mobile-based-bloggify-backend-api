@@ -4,6 +4,8 @@ use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
 use App\Http\Controllers\BlogModelController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CategoryController;
 
 Route::prefix('api')->group(function () {
     Route::post('register', [authController::class, 'register']);
@@ -14,5 +16,6 @@ Route::prefix('api')->group(function () {
         Route::post('blogs/{id}/likes', [LikeController::class, 'toggleLike']);
         Route::apiResource('blogs', BlogModelController::class);
         Route::apiResource('comments', CommentController::class);
+        Route::apiResource('category', CategoryController::class)->shallow();
     });
 });
