@@ -8,10 +8,7 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     // Constructor to require authentication for all methods except index and show
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show']);
-    }
+ 
 
     // List all categories
     public function index()
