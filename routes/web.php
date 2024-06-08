@@ -15,6 +15,7 @@ Route::prefix('api')->group(function () {
     Route::group(['middleware' => ['auth:sanctum']], function() {
         Route::post('logout', [authController::class, 'logout']);
         Route::post('blogs/{id}/likes', [LikeController::class, 'toggleLike']);
+        Route::get('blogs/my/{id}/', [BlogModelController::class, 'myBlogs']);
         Route::apiResource('blogs', BlogModelController::class);
         Route::apiResource('comments', CommentController::class);
         Route::apiResource('category', CategoryController::class);

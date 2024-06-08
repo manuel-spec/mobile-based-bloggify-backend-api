@@ -22,6 +22,8 @@ class BlogModelController extends Controller
     // Create a new blog
     public function store(Request $request)
     {
+        // $blog = BlogModel::create($request->all());
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -76,5 +78,15 @@ class BlogModelController extends Controller
         $blog->delete();
 
         return response()->json(null, 204);
+    }
+    public function myBlogs($id) {
+        $blogs = BlogModel::where('user_id', $id)
+            ->with('user:id,name,username')
+            ->with('category:id,name')
+            ->withCount('likes')
+            ->get();
+
+        return response()->json($blogs);
+        
     }
 }
