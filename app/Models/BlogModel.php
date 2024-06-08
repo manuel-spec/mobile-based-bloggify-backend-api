@@ -12,6 +12,7 @@ use App\Models\Category;
 
 class BlogModel extends Model
 {
+    protected $table = 'blog_models';
     protected $fillable = [
         'title',
         'description',
@@ -31,5 +32,9 @@ class BlogModel extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'blog_id');
     }
 }

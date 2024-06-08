@@ -18,6 +18,7 @@ Route::prefix('api')->group(function () {
         Route::get('blogs/my/{id}/', [BlogModelController::class, 'myBlogs']);
         Route::apiResource('blogs', BlogModelController::class);
         Route::apiResource('comments', CommentController::class);
+        Route::post('comments/get/', [CommentController::class, 'myComments']);
         Route::apiResource('category', CategoryController::class);
         Route::apiResource('users', UserController::class);
     });

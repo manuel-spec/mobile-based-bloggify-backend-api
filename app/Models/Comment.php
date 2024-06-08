@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+    // protected $table = 'comments';
+
     protected $fillable = [
         'user_id',
-        'post_id',
+        'blog_id',
         'content',
     ];
     
@@ -21,7 +23,8 @@ class Comment extends Model
     
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(BlogModel::class);
     }
+    
 
 }

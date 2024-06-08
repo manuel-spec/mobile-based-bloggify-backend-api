@@ -8,22 +8,20 @@ use App\Models\BlogModel;
 
 class CommentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show']);
-    }
-
+  
     public function index($blogId)
     {
         $comments = Comment::where('blog_id', $blogId)->get();
         return response()->json($comments);
     }
 
-    public function store(Request $request, $blogId)
+    public function store(Request $request)
     {
         $request->validate([
             'content' => 'required|string|max:255',
+            'blog_id' => 'required|exists:blog_models,id',
         ]);
+        $blogId = $request->input('blog_id');
 
         $blog = BlogModel::find($blogId);
         if (!$blog) {
@@ -76,5 +74,14 @@ class CommentController extends Controller
         $comment->delete();
 
         return response()->json(['message' => 'Comment deleted']);
+    }
+    public function myComments(Request $request)
+    {
+        $id = auth()->id();
+        $blog_id = $request->input('blog_id');
+        $blog_comments = Comment::where('blog_id', $blog_id)->get();
+        $comments = Comment::where('user_id', $id)->get();
+
+        return response()->json($blog_comments);
     }
 }
